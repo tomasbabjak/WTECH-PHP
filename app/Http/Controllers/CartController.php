@@ -27,7 +27,6 @@ class CartController extends Controller
         }
         else{
             $user = Auth::user();
-            dd($session_id = Session::getId());
             $cartId = $user->cart->id;
             $cart_items = DB::table('cart_items')->where('cart_id',$cartId)->get();
             $products = [];

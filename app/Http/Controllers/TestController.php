@@ -14,7 +14,7 @@ class TestController extends Controller
         $products2 = Product::inRandomOrder()->take(6)->get();
         $products3 = Product::inRandomOrder()->take(6)->get();
         $categories = Category::all();
-        return view('layout.landing-page')->with('products1', $products1)->with('products2', $products2)->with('products3', $products3)->with('categories', $categories);
+        return view('layout.landing-page')->with('success', 'false')->with('products1', $products1)->with('products2', $products2)->with('products3', $products3)->with('categories', $categories);
         
     }
 

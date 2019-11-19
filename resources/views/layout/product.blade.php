@@ -58,7 +58,7 @@
                 </div>
                 <div class="d-flex flex-column">
                 <h4>{{'Cena: '.$product->price.' €'}}</h4>
-                <p class="no-dph">{{'Cena bez DPH:'.$product->price.' €'}}</p>
+                <p class="no-dph">Cena bez DPH: {{number_format((float)(($product->price)*0.8), 2, '.', '')}} €</p>
                 </div>
             </div>
             </div>

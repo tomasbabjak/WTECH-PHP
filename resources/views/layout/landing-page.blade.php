@@ -1,6 +1,12 @@
 @extends('layout.app')
 
 @section('content')
+
+	@if($success !== 'false')
+		<div class="alert alert-success">
+			{{ ($success) }}
+		</div>
+	@endif
 	<div class="dropdown-sm show">
 		<a class="dropbtn btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategórie</a>
 		<div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuLink">

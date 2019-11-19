@@ -107,7 +107,7 @@
                 >Chcem nakupovať</a
                 >
                 <div class="">
-                <a class="btn btn-secondary" href="shop2.html"
+                <a class="btn btn-secondary" href="{{route('transport.index')}}"
                     >Pokračovať</a
                 >
                 </div>

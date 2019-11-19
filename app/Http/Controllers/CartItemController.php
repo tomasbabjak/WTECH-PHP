@@ -30,7 +30,6 @@ class CartItemController extends Controller
             $oldCart = Session::has('cart') ? Session::get('cart') : null;
             $cart = new SessionCart($oldCart);
             $product = Product::where('id', $request->id)->get()->first();
-            //dd($product, $product->id);
             $cart->add($product, $product->id);
             $request->session()->put('cart',$cart);
             return view('layout.cart')->with('products', $cart->items);
