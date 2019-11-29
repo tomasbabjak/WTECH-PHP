@@ -34,3 +34,11 @@ Route::get('/product/{product}', 'ObuvController@show')->name('obuv.show');
 Route::post('/cart', 'CartItemController@store')->name('cart.store');
 
 Route::get('/{category}', 'TestController@show')->name('test.show');
+
+Route::get('products/list/{page}', 'ObuvController@list');
+Route::delete('products/{product}', 'ObuvController@destroy');
+Route::post('products/', 'ObuvController@store');
+Route::get('products/{product}/edit', 'ObuvController@edit');
+Route::put('products/{product}', 'ObuvController@update');
+
+Route::get('products/create', 'ObuvController@categories');
