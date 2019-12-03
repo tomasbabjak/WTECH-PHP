@@ -134,4 +134,18 @@ class ObuvController extends Controller
         return response()->json($arr);
     }
 
+    public function upload(Request $request)
+    {
+        if($request->hasfile('file')) 
+        { 
+            $file = $request->file('file');
+            $name = str_replace(' ', '-', strtolower($request->name));
+            $brand = str_replace(' ', '-', strtolower($request->brand));
+            $extension = $file->getClientOriginalExtension();
+            $filename = $brand.'-'.$name.'.'.$extension;
+            $file->move('D:\FIIT\5.semester\WTECH\Project_php\eshop\public\img\products-laptop', $filename);
+        }
+    }
+
 }
+

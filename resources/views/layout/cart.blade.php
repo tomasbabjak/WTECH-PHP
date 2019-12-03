@@ -11,11 +11,12 @@
         </p>
     </div>
 </section>
-@foreach ($products as $product)
+@foreach ($items as $item)
     <div class="container-fluid">
+        <p hidden >{{$product=\App\Product::where('id', $item->product_id)->get()->first()}}</p>
         <div class="row justify-content-center">
         <div class="col-lg-8 col-12">
-            <div class="container card" id="{{($product->id)}}">
+            <div class="container card" id="{{$product->id}}">
             <div class="row align-self-end">
                 <div class="col-12">
                 <form action="{{ route('cart.delete', ['id' => $product->id]) }}" method="post">
@@ -28,7 +29,7 @@
             <div class="row">
                 <div class="col-12 col-sm-6">
                 <div class="p-2">
-                    <h4>{{($product->name)}}</h4>
+                    <h4>{{($product->brand.' '.$product->name)}}</h4>
                 </div>
                 <div class="p-2">
                     <div class="d-flex flex-row justify-content-center">
@@ -57,14 +58,13 @@
                     </button>
                 </div>
                 <input
-                    {{$cart_id=\Illuminate\Support\Facades\Auth::user()->cart->id}}
                     id="{{($product->name)}}-cart"
                     type="text"
                     style="text-align: center"
                     class="form-control"
-                    placeholder="{{\App\CartItem::where('product_id',$product->id)->where('cart_id', $cart_id)->get()->first()->quantity}}"
+                    placeholder="{{$item->quantity}}"
                     name="arr"
-                    value="{{\App\CartItem::where('product_id',$product->id)->where('cart_id', $cart_id)->get()->first()->quantity}}"
+                    value="{{$item->quantity}}"
                 />
                 <div class="input-group-append">
                     <button
@@ -82,20 +82,23 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-4 align-self-end">
                     <div class="row justify-content-center">
                         <h3>Spolu: &nbsp;</h3>
-                        <h3 id='{{($product->id)}}-cart'>{{($product->price)*(\App\CartItem::where('product_id',$product->id)->where('cart_id', $cart_id)->get()->first()->quantity)}}</h3>
+                        <h3 id='{{($product->id)}}-cart'>{{($product->price)*($item->quantity)}}</h3>
                         <h3>€</h3>
                     </div>
                 </div>
             </div>
             </div>
             </div>
-            
             </div>
-            
             </div>
-            
-
     @endforeach
+    @if (count($items) === 0)
+    <section class="section-jumbotron text-center">
+        <div class="container-fluid">
+            <h1 class="jumbotron-heading">Váš nákupný košík je prázdny!</h1>
+        </div>
+    </section>
+    @endif
     <div class="container-fluid">
         <div class="row justify-content-center">
         <div class="col-lg-8 col-12">            
@@ -107,7 +110,11 @@
                 >Chcem nakupovať</a
                 >
                 <div class="">
-                <a class="btn btn-secondary" href="{{route('transport.index')}}"
+                <a class="btn btn-secondary"
+                @if (count($items) === 0)
+                    hidden
+                @endif
+                 href="{{route('transport.index')}}"
                     >Pokračovať</a
                 >
                 </div>

@@ -20,10 +20,9 @@ class CartController extends Controller
     public function index()
     {
         if(Auth::guest()){
-            dd($session_id = Session::getId());
             $oldCart = Session::has('cart') ? Session::get('cart') : [];
             $cart = new SessionCart($oldCart);
-            return view('layout.cart')->with('products', $cart->items);
+            return view('layout.cart')->with('items', $cart->items);
         }
         else{
             $user = Auth::user();
@@ -33,7 +32,7 @@ class CartController extends Controller
             foreach($cart_items as $cart_item){
                 array_push($products,Product::where('id',$cart_item->product_id)->get()->first());
             }
-            return view('layout.cart')->with('products', $products);
+            return view('layout.cart')->with('items', $cart_items);
         }
     }
 

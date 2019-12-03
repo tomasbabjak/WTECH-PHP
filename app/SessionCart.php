@@ -15,7 +15,7 @@ class SessionCart
     public function add($item, $id) {
         $ids = [];
         foreach($this->items as $i){
-            array_push($ids, $i->id);
+            array_push($ids, $i->product_id);
         }
         if (!(in_array($id, $ids))) {
             array_push($this->items, $item);

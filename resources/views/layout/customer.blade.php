@@ -138,7 +138,7 @@
             </div>
         </div>
         <div class="d-flex flex-row justify-content-between">
-            <button class="btn btn-secondary" href="{{route('transport.index')}}">Späť</button>
+            <a class="btn btn-secondary" href="{{route('transport.index')}}">Späť</a>
             <button class="btn btn-secondary" type="submit" href="{{route('customer.index')}}">Pokračovať</button>
         </div>
         </div>

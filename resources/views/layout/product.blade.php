@@ -49,7 +49,7 @@
         <div class="col-lg-6 col-md-12 d-flex justify-content-md-center">
         <div class="d-flex flex-column">
             <div class="p-2">
-            <h2>{{$product->name}}</h2>
+            <h2>{{$product->brand.' '.$product->name}}</h2>
             </div>
             <div class="p-2">
             <div class="d-flex flex-row justify-content-between">
@@ -106,7 +106,7 @@
                     <a href={{route('obuv.show', $products[$i]->label)}}>
                     <img class="w-100" src="{{asset('img/products-laptop/'.$products[$i]->label.'.jpg')}}"/>
                     <div class="product_name">
-                    <h6>{{ $products[$i]->name}}</h6>
+                    <h6>{{ $products[$i]->brand.' '.$products[$i]->name}}</h6>
                     </div>
                     <div class="price">{{ $products[$i]->price.' €'}}</div>
                     </a>
@@ -121,7 +121,7 @@
                     <a href={{route('obuv.show', $products[$i]->label)}}>
                     <img class="w-100" src="{{asset('img/products-laptop/'.$products[$i]->label.'.jpg')}}" />
                     <div class="product_name">
-                    <h6>{{ $products[$i]->name}}</h6>
+                    <h6>{{ $products[$i]->brand.' '.$products[$i]->name}}</h6>
                     </div>
                     <div class="price">{{ $products[$i]->price.' €'}}</div>
                     </a>
@@ -171,7 +171,7 @@
             <a href={{route('obuv.show', $products[$i]->label)}}>
             <img class="w-100" src="{{asset('img/products-laptop/'.$products[$i]->label.'.jpg')}}" />
             <div class="product_name">
-                <h6>{{ $products[$i]->name}}</h6>
+                <h6>{{ $products[$i]->brand.' '.$products[$i]->name}}</h6>
             </div>
             <div class="price">{{ $products[$i]->price.' €'}}</div>
             </a>
@@ -186,7 +186,7 @@
             <a href={{route('obuv.show', $products[$i]->label)}}>
             <img src="{{asset('img/products-laptop/'.$products[$i]->label.'.jpg')}}" class="w-100" alt="..." />
             <div class="product_name">
-                <h6>{{ $products[$i]->name}}</h6>
+                <h6>{{ $products[$i]->brand.' '.$products[$i]->name}}</h6>
             </div>
             <div class="price">{{ $products[$i]->price.' €'}}</div>
 </a>

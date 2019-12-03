@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('transport_id');
             $table->unsignedBigInteger('payment_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable()->unsigned();
             $table->foreign('cart_id')->references('id')->on('carts');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('transport_id')->references('id')->on('transports');

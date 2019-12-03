@@ -29,6 +29,12 @@ class TestController extends Controller
             $arr = array(request('arr'));
             $products = $products->whereIn('brand',$arr[0]);
         }
+        if(request('from_price') !== null){
+            $products = $products->where('price', '>=', (int)(request('from_price')));
+        }
+        if(request('to_price') !== null){
+            $products = $products->where('price', '<=', (int)(request('to_price')));
+        }
 
         if(request()->sort == 'low'){
             $products = $products->orderBy('price')->paginate(9);

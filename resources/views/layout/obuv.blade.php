@@ -25,8 +25,8 @@
         >
         <div class="collapse" id="collapse">
             <div class="card">
-            <h4>Značka:</h4>
             <form action="{{ route('test.show', ['category'=>request()->category])}}" method="get">
+            <h4>Značka:</h4>
                 @foreach ($brands as $brand)
                     <div class="form-check">
                         <input
@@ -41,6 +41,40 @@
                         </label>
                     </div>
                 @endforeach
+                <h4>Cena:</h4>
+            <label class="form-check-label" for="low">
+                Od:
+            </label>
+            <div class="input-group">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="from_price"
+                    value=""
+                    id="low"
+                />
+                <div class="input-group-append">
+                    <span class="input-group-text">€</span>
+                </div>
+            </div>
+            </br>
+            <label class="form-check-label" for="high">
+                Do:
+            </label>
+            <div class="input-group">
+
+            <input
+                class="form-control"
+                type="text"
+                name="to_price"
+                value=""
+                id="high"
+            />
+            <div class="input-group-append">
+                    <span class="input-group-text">€</span>
+                </div>
+
+            </div>
                 <button type="submit" class="fixed-ct">Filtrovat</button>
                 @csrf
             </form>
@@ -90,6 +124,7 @@
                 </div>
             <div class="card">
             <form action="{{ route('test.show', ['category'=>request()->category])}}" method="get">
+            <h4>Značka:</h4>
                 @foreach ($brands as $brand)
                     <div class="form-check">
                         <input
@@ -104,6 +139,40 @@
                         </label>
                     </div>
                 @endforeach
+            <h4>Cena:</h4>
+            <label class="form-check-label" for="low">
+                Od:
+            </label>
+            <div class="input-group">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="from_price"
+                    value=""
+                    id="low"
+                />
+                <div class="input-group-append">
+                    <span class="input-group-text">€</span>
+                </div>
+            </div>
+            </br>
+            <label class="form-check-label" for="high">
+                Do:
+            </label>
+            <div class="input-group">
+
+            <input
+                class="form-control"
+                type="text"
+                name="to_price"
+                value=""
+                id="high"
+            />
+            <div class="input-group-append">
+                    <span class="input-group-text">€</span>
+                </div>
+
+            </div>
                 <button type="submit" class="fixed-ct">Filtrovat</button>
                 @csrf
 
@@ -120,7 +189,7 @@
                     <a class="produkt-name" href={{route('obuv.show', $product->label)}}>
                         <img src="{{asset('img/products-laptop/'.$product->label.'.jpg')}}" class="w-100" alt="..." />
                         <div class="product_name">
-                            <h6>{{$product->name}}</h6>
+                            <h6>{{$product->brand.' '.$product->name}}</h6>
                         </div>
                         <div class="price">{{$product->price.' €'}}</div>
                     </a>        

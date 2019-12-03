@@ -62,7 +62,7 @@
               </div>
             </div>
             <div class="d-flex flex-row justify-content-between">
-              <button class="btn btn-secondary" href="{{route('fart.index')}}">Späť</button>
+              <a class="btn btn-secondary" href="{{route('fart.index')}}">Späť</a>
               <button class="btn btn-secondary" type="submit" href="{{route('transport.show')}}">Pokračovať</button>
 			  @csrf
 			</form>

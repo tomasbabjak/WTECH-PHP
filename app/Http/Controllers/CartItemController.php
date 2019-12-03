@@ -30,9 +30,17 @@ class CartItemController extends Controller
             $oldCart = Session::has('cart') ? Session::get('cart') : null;
             $cart = new SessionCart($oldCart);
             $product = Product::where('id', $request->id)->get()->first();
-            $cart->add($product, $product->id);
-            $request->session()->put('cart',$cart);
-            return view('layout.cart')->with('products', $cart->items);
+            $item = new CartItem(['product_id'=>$request->id, 'quantity' => 1]);
+            $cart->add($item, $product->id);
+            $request->session()->put('cart', $cart);
+
+            $ids = [];
+            $products = [];
+            foreach($cart->items as $cart_item){
+                array_push($ids, $cart_item->product_id);
+                array_push($products,Product::where('id',$cart_item->product_id)->get()->first());
+            }
+            return view('layout.cart')->with('products', $products)->with('items', $cart->items);
         }
         else{
             $user = Auth::user();
@@ -48,7 +56,8 @@ class CartItemController extends Controller
                 $cartitem = CartItem::create(['product_id'=>$request->id, 'quantity' => 1, 'cart_id'=>$cart_id]);
                 array_push($products, Product::where('id',$request->id)->get()->first());
             }
-            return view('layout.cart')->with('products', $products);
+            $cart_items = DB::table('cart_items')->where('cart_id',$cart_id)->get();
+            return view('layout.cart')->with('products', $products)->with('items', $cart_items);
         }
     }
 
@@ -57,34 +66,49 @@ class CartItemController extends Controller
         if(Auth::guest()){
             $oldCart = Session::has('cart') ? Session::get('cart') : null;
             $cart = new SessionCart($oldCart);
-            $product = Product::where('id', $id)->get()->first();
-            $products = $cart->items;
-            if(($key = array_search($product, $products)) !== false){
-                unset($products[$key]);
+            $items = $cart->items;
+            foreach($cart->items as $cart_item){
+                if($cart_item['product_id'] == $id){
+                    $item = $cart_item;
+                }
             }
-            $cart->replace($products);
+            if(($key = array_search($item, $items)) !== false){
+                unset($items[$key]);
+            }
+            $cart->replace($items);
             $request->session()->put('cart',$cart);
-            return view('layout.cart')->with('products', $cart->items);
+            return view('layout.cart')->with('products', $cart->items)->with('items', $cart->items);
 
         }else{
             $user = Auth::user();
             $cart_id = $user->cart->id;
             $cartItem = CartItem::where('product_id',$id)->where('cart_id',$cart_id)->get()->first();
             CartItem::destroy($cartItem->id);
-            return back()->withInput();
+            $cart_items = DB::table('cart_items')->where('cart_id',$cart_id)->get();
+            return view('layout.cart')->with('items', $cart_items);
         }
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
         if(Auth::guest()){
+            $oldCart = Session::has('cart') ? Session::get('cart') : null;
+            $cart = new SessionCart($oldCart);
+            foreach($cart->items as $cart_item){
+                if($cart_item['product_id'] == $id){
+                    $cart_item['quantity'] = request()->arr;
+                }
+            }
+            $request->session()->put('cart', $cart);
+            return view('layout.cart')->with('items', $cart->items);
         }else{
             $user = Auth::user();
             $cart_id = $user->cart->id;
             $cartItem = CartItem::where('product_id',$id)->where('cart_id',$cart_id)->get()->first();
             $cartItem->quantity = request()->arr;
             $cartItem->save();
-            return back();
+            $cart_items = DB::table('cart_items')->where('cart_id',$cart_id)->get();
+            return view('layout.cart')->with('items', $cart_items);
         }
     }
 

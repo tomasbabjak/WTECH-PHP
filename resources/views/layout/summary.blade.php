@@ -14,9 +14,8 @@
     <div class="row">
         <div class="col-lg-6 col-12 card">
         <h3>Tovar:</h3>
-        <p hidden>{{($cart_id=\Illuminate\Support\Facades\Auth::user()->cart->id)}}</p>
-        @foreach ($products as $product)
-        <p>{{(\App\CartItem::where('product_id',$product->id)->where('cart_id', $cart_id)->get()->first()->quantity)}} x {{($product->name)}}</p>
+        @foreach ($cart_items as $item)
+        <p>{{$item->quantity}} x {{\App\Product::where('id', $item->product_id)->first()->name}}</p>
         @endforeach
         <h3>Doprava:</h3>
         <p>{{(\App\Transport::where('id',$order->transport_id)->get()->first()->name)}}</p>

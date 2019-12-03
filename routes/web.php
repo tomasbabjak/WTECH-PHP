@@ -42,3 +42,5 @@ Route::get('products/{product}/edit', 'ObuvController@edit');
 Route::put('products/{product}', 'ObuvController@update');
 
 Route::get('products/create', 'ObuvController@categories');
+
+Route::post('/upload', 'ObuvController@upload');
